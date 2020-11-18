@@ -1,0 +1,19 @@
+<script>
+function fetch_cached(){
+// check if the data already present in local cache
+if(localStorage.getItem('axiosData')) {
+return localStorage.getItem('axiosData');
+}
+else {
+	// call to get download the link using axios get
+   axios.interceptors.response.use((response) => {
+  if (response.headers.client) {
+    localStorage.setItem('access-token', response.headers['access-token']);
+    localStorage.setItem('client', response.headers.client);
+    localStorage.setItem('uid', response.headers.uid);
+    localStorage.setItem('token-type', response.headers['token-type']);
+  }
+  return response;
+});
+}
+</script>
